@@ -10,6 +10,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./jarvis_flutter
 
     steps:
       - name: Checkout code
@@ -28,13 +32,14 @@ jobs:
           flutter-version: 'stable'
           cache: true
 
+      - name: Fix gradlew permissions
+        run: chmod +x android/gradlew
+
       - name: Get Flutter dependencies
         run: flutter pub get
-        working-directory: ./jarvis_flutter
 
       - name: Build release APK
         run: flutter build apk --release
-        working-directory: ./jarvis_flutter
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v3
