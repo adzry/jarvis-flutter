@@ -30,15 +30,17 @@ jobs:
 
       - name: Get Flutter dependencies
         run: flutter pub get
+        working-directory: ./jarvis_flutter
 
       - name: Build release APK
         run: flutter build apk --release
+        working-directory: ./jarvis_flutter
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v3
         with:
           name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: jarvis_flutter/build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
           if-no-files-found: error
 
@@ -47,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-logs
-          path: build/
+          path: jarvis_flutter/build/
